@@ -99,7 +99,7 @@ services:
       - kube-apiserver
       - --etcd-servers=localhost:1234
     ports:
-      - ${KUBE_APISERVER_PORT:-6443}
+      - ${KUBE_APISERVER_PORT:-6443}:6443
     networks:
       - kube-master
 
@@ -138,9 +138,9 @@ services:
     image: k8s.gcr.io/kube-apiserver-amd64:v${KUBE_VERSION:-1.15.3}
     command: 
       - kube-apiserver
-      - --etcd-servers=etcd:2379
+      - --etcd-servers=http://etcd:2379
     ports:
-      - ${KUBE_APISERVER_PORT:-6443}
+      - ${KUBE_APISERVER_PORT:-6443}:6443
     networks:
       - kube-master
     depends_on:
@@ -152,7 +152,7 @@ services:
       - etcd
       - --listen-client-urls=http://0.0.0.0:2379
       - --advertise-client-urls=http://etcd:2379
-
+      - --data-dir=/var/lib/etcd
     ports:
       - "2379"
     volumes:
@@ -170,56 +170,7 @@ volumes:
 **`docker-compose up` output**:
 
 ```log
-Recreating kubernetes-from-scratch_etcd_1 ... done
-Recreating kubernetes-from-scratch_kube-apiserver_1 ... done
-Attaching to kubernetes-from-scratch_etcd_1, kubernetes-from-scratch_kube-apiserver_1
-etcd_1            | 2019-09-15 03:09:36.241656 I | etcdmain: etcd Version: 3.3.15
-etcd_1            | 2019-09-15 03:09:36.241711 I | etcdmain: Git SHA: 94745a4ee
-etcd_1            | 2019-09-15 03:09:36.241721 I | etcdmain: Go Version: go1.12.9
-etcd_1            | 2019-09-15 03:09:36.241733 I | etcdmain: Go OS/Arch: linux/amd64
-etcd_1            | 2019-09-15 03:09:36.241740 I | etcdmain: setting maximum number of CPUs to 4, total number of available CPUs is 4
-etcd_1            | 2019-09-15 03:09:36.241753 W | etcdmain: no data-dir provided, using default data-dir ./default.etcd
-etcd_1            | 2019-09-15 03:09:36.242127 I | embed: listening for peers on http://localhost:2380
-etcd_1            | 2019-09-15 03:09:36.242210 I | embed: listening for client requests on 0.0.0.0:2379
-etcd_1            | 2019-09-15 03:09:36.250189 I | etcdserver: name = default
-etcd_1            | 2019-09-15 03:09:36.250209 I | etcdserver: data dir = default.etcd
-etcd_1            | 2019-09-15 03:09:36.250223 I | etcdserver: member dir = default.etcd/member
-etcd_1            | 2019-09-15 03:09:36.250251 I | etcdserver: heartbeat = 100ms
-etcd_1            | 2019-09-15 03:09:36.250261 I | etcdserver: election = 1000ms
-etcd_1            | 2019-09-15 03:09:36.250271 I | etcdserver: snapshot count = 100000
-etcd_1            | 2019-09-15 03:09:36.250286 I | etcdserver: advertise client URLs = http://etcd:2379
-etcd_1            | 2019-09-15 03:09:36.250298 I | etcdserver: initial advertise peer URLs = http://localhost:2380
-etcd_1            | 2019-09-15 03:09:36.250312 I | etcdserver: initial cluster = default=http://localhost:2380
-etcd_1            | 2019-09-15 03:09:36.252979 I | etcdserver: starting member 8e9e05c52164694d in cluster cdf818194e3a8c32
-etcd_1            | 2019-09-15 03:09:36.253027 I | raft: 8e9e05c52164694d became follower at term 0
-etcd_1            | 2019-09-15 03:09:36.253049 I | raft: newRaft 8e9e05c52164694d [peers: [], term: 0, commit: 0, applied: 0, lastindex: 0, lastterm: 0]
-etcd_1            | 2019-09-15 03:09:36.253060 I | raft: 8e9e05c52164694d became follower at term 1
-etcd_1            | 2019-09-15 03:09:36.257974 W | auth: simple token is not cryptographically signed
-etcd_1            | 2019-09-15 03:09:36.260204 I | etcdserver: starting server... [version: 3.3.15, cluster version: to_be_decided]
-etcd_1            | 2019-09-15 03:09:36.260404 I | etcdserver: 8e9e05c52164694d as single-node; fast-forwarding 9 ticks (election ticks 10)
-etcd_1            | 2019-09-15 03:09:36.260921 I | etcdserver/membership: added member 8e9e05c52164694d [http://localhost:2380] to cluster cdf818194e3a8c32
-etcd_1            | 2019-09-15 03:09:36.758575 I | raft: 8e9e05c52164694d is starting a new election at term 1
-etcd_1            | 2019-09-15 03:09:36.758610 I | raft: 8e9e05c52164694d became candidate at term 2
-etcd_1            | 2019-09-15 03:09:36.758637 I | raft: 8e9e05c52164694d received MsgVoteResp from 8e9e05c52164694d at term 2
-etcd_1            | 2019-09-15 03:09:36.758660 I | raft: 8e9e05c52164694d became leader at term 2
-etcd_1            | 2019-09-15 03:09:36.758675 I | raft: raft.node: 8e9e05c52164694d elected leader 8e9e05c52164694d at term 2
-etcd_1            | 2019-09-15 03:09:36.758934 I | etcdserver: setting up the initial cluster version to 3.3
-etcd_1            | 2019-09-15 03:09:36.759434 N | etcdserver/membership: set the initial cluster version to 3.3
-etcd_1            | 2019-09-15 03:09:36.759466 I | etcdserver/api: enabled capabilities for version 3.3
-etcd_1            | 2019-09-15 03:09:36.759505 I | etcdserver: published {Name:default ClientURLs:[http://etcd:2379]} to cluster cdf818194e3a8c32
-etcd_1            | 2019-09-15 03:09:36.759892 I | embed: ready to serve client requests
-etcd_1            | 2019-09-15 03:09:36.760342 N | embed: serving insecure client requests on [::]:2379, this is strongly discouraged!
-kube-apiserver_1  | I0915 03:09:37.852232       1 serving.go:312] Generated self-signed cert (/var/run/kubernetes/apiserver.crt, /var/run/kubernetes/apiserver.key)
-kube-apiserver_1  | I0915 03:09:37.852279       1 server.go:560] external host was not specified, using 172.19.0.3
-kube-apiserver_1  | W0915 03:09:37.852298       1 authentication.go:415] AnonymousAuth is not allowed with the AlwaysAllow authorizer. Resetting AnonymousAuth to false. You should use a different authorizer
-kube-apiserver_1  | I0915 03:09:37.852868       1 server.go:147] Version: v1.15.3
-kube-apiserver_1  | I0915 03:09:38.376629       1 plugins.go:158] Loaded 9 mutating admission controller(s) successfully in the following order: NamespaceLifecycle,LimitRanger,ServiceAccount,TaintNodesByCondition,Priority,DefaultTolerationSeconds,DefaultStorageClass,StorageObjectInUseProtection,MutatingAdmissionWebhook.
-kube-apiserver_1  | I0915 03:09:38.376650       1 plugins.go:161] Loaded 6 validating admission controller(s) successfully in the following order: LimitRanger,ServiceAccount,Priority,PersistentVolumeClaimResize,ValidatingAdmissionWebhook,ResourceQuota.
-kube-apiserver_1  | I0915 03:09:39.378172       1 client.go:354] parsed scheme: ""
-kube-apiserver_1  | I0915 03:09:39.378220       1 client.go:354] scheme "" not registered, fallback to default scheme
-kube-apiserver_1  | I0915 03:09:39.378298       1 asm_amd64.s:1337] ccResolverWrapper: sending new addresses to cc: [{etcd:2379 0  <nil>}]
-kube-apiserver_1  | I0915 03:09:39.378383       1 asm_amd64.s:1337] balancerWrapper: got update addr from Notify: [{etcd:2379 <nil>}]
-kube-apiserver_1  | I0915 03:09:39.381649       1 asm_amd64.s:1337] balancerWrapper: got update addr from Notify: [{etcd:2379 <nil>}]
+redo
 ```
 
 ## Step n: Connect to `kube-apiserver` via `kubectl`
@@ -229,12 +180,108 @@ I expect this to fail initially, and I'm not sure if we'll easily be able to get
 Let's see if that's true.
 
 ```sh
-kubectl config set cluster ...
-kubectl config set context ...
-kubectl config use-context ...
+kubectl config set-cluster scratch --server=https://localhost:8443 --insecure-skip-tls-verify
+kubectl config set-context scratch --cluster=scratch
 
 # Moment of truth
-kubectl --context=... cluster-info
+kubectl --context=scratch cluster-info dump
+```
+
+```log
+error: You must be logged in to the server (Unauthorized)
+```
+
+Well, that failed... But I recall something earlier from logs about anonymous access and authorization mode AlwaysAllow not permitting anonomous requests. After some reading, it looks like RBAC allows anonymous requests through `--authorization-mode=RBAC`, and we can disable anonymous auth later with `--anonymous-auth=false`.
+
+After adding that option to the `kube-apiserver` command in `docker-compose.yml`, I now see:
+
+```log
+Error from server (Forbidden): nodes is forbidden: User "system:anonymous" cannot list resource "nodes" in API group "" at the cluster scope
+```
+
+Which although looks bad, it is a valid response from the server. The error is just saying I need to setup a `ClusterRole` permitting these options, and a `ClusterRoleBinding` for `system:anonymous`
+
+## Step n: Temporary Access
+
+Since we have enabled RBAC, all requests to `kube-apiserver` are unauthorized (not just anonymous requests). So, we need to start up the `kube-apiserver` with the default `AllowAll` authorizer, which will not allow anonymous auth, so we also set a temporary token.
+
+To do this, we'll run an init container that runs before `kube-apiserver` which generates a token and stores it in a file, and `kube-apiserver` will be configured to read tokens from that same files.
+
+_**Note:** This is only temporary, and we will find a more robust soluton to bootstrapping the cluster. For now, this is just to see if we can communicate to the `kube-apiserver` with as little dependencies as possible._
+
+```yml
+version: "3.7"
+services:
+
+  bootstrap-token:
+    image: busybox
+    init: true
+    command:
+      - sh
+      - -c
+      - |
+        TOKEN=$$(head -c 16 /dev/urandom | od -An -t x | tr -d ' ')
+        echo "$${TOKEN},dummy,10001,\"system:bootstrappers\"" > /token-data/temporary-tokens
+        echo "Token: $${TOKEN}"
+    volumes:
+      - token-data:/token-data
+
+  kube-apiserver:
+    # https://console.cloud.google.com/gcr/images/google-containers/GLOBAL/kube-apiserver-amd64
+    image: k8s.gcr.io/kube-apiserver-amd64:v${KUBE_VERSION:-1.15.3}
+    command: 
+      - kube-apiserver
+      - --etcd-servers=http://etcd:2379
+      #- --authorization-mode=RBAC
+      - --token-auth-file=/token-data/temporary-tokens
+    ports:
+      - ${KUBE_APISERVER_PORT:-6443}:6443
+    volumes:
+      - token-data:/token-data
+    networks:
+      - kube-master
+    depends_on:
+      - bootstrap-token
+      - etcd
+
+  etcd:
+    # https://console.cloud.google.com/gcr/images/google-containers/GLOBAL/etcd-amd64
+    image: k8s.gcr.io/etcd-amd64:${ETCD_VERSION:-3.3.15}
+    command:
+      - etcd
+      - --listen-client-urls=http://0.0.0.0:2379
+      - --advertise-client-urls=http://etcd:2379
+      - --data-dir=/var/lib/etcd
+    ports:
+      - "2379"
+    volumes:
+      - etcd-data:/var/lib/etcd
+    networks:
+      - kube-master
+
+networks:
+  kube-master:
+
+volumes:
+  token-data:
+  etcd-data:
+
+```
+
+```sh
+# Get the latest bootstrap token
+TOKEN=$(docker-compose logs bootstrap-token | grep -o '[0-9a-f]\{32\}')
+
+# Check if we can get cluster-info
+kubectl --context=scratch cluster-info --token=$TOKEN
+```
+
+**Success at last**
+
+```log
+Kubernetes master is running at https://localhost:8443
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
 [part-0]: Kubernetes Architecture
