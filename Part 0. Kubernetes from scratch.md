@@ -31,11 +31,9 @@ This series includes:
 - Part 0: Kubernetes Architecture
 - [Part 1: Kubernetes API Server up and running][part-1]
 
+For the past year or so, I have mostly worked with managed Kubernetes offerings in the cloud (EKS, AKS, GKE). It has been some time since I provisioned a home-grown Kubernetes cluster, so I spent some time gaining a deeper understanding of the components that make up a Kubernetes cluster. Through this series you will gain a deeper understanding of how the Kubernetes components hang together, and be able to simply launch Kubernetes clusters using common deployment tools.
+
 The approach I would like to take (we'll see when we're through) is to utilise existing tooling and Kubernetes clusters managed outside of our team. Roughly put, master services will run on an existing Kubernetes cluster, deployed by Helm (like most of our other deployments), and worker nodes can be attached and removed as needed. I call this _BYO Worker_.
-
-For the past year or so, I have mostly worked with managed Kubernetes offerings in the cloud (EKS, AKS, GKE). It has been some time since I provisioned a home-grown Kubernetes cluster, so before digging in, I wanted to understand what building a cluster looks like today. That means getting a deeper understanding of the components involved.
-
-Let's begin.
 
 ## Kubernetes Architecture
 
