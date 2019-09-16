@@ -17,7 +17,7 @@ September 14, 2019
 </p>
 </details>  
 
-To help improve my teams efficiency, I'm exploring ways to launch on-prem Kubernetes clusters with minimal effort. While we do run some workloads in the cloud, the nature of the business and some history means we also run a lot on-prem. While there are on-prem options for running Kubernetes (both paid and free), I felt that with a little more effort, we might be able simply instantiate small ephemeral clusters with low operational overhead.
+To help improve my teams efficiency, I'm exploring ways to launch on-prem Kubernetes clusters with minimal effort. While we do run some workloads in the cloud, the nature of the business and some history means we also run a lot on-prem. While there are on-prem options for running Kubernetes (both paid and free), I felt that with a little more effort, we might be able simply instantiate small ephemeral production-grade clusters with low operational overhead.
 
 ## The series
 
