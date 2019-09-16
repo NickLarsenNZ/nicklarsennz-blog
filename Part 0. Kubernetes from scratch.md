@@ -21,7 +21,11 @@ To help improve my teams efficiency, I'm exploring ways to launch on-prem Kubern
 
 ## The series
 
-In this series, I hope to work through running each of the necessary components of Kubernetes, and developing a deployment model.
+In this series, I will build a deployable configuration of all necessary components to stand up a Kubernetes cluster, and developing a deployment model.
+
+While there are many articles on how to deploy a Kubernetes cluster, I have yet to come across one that builds the minimum necessary, leverages containerisation for the control plane, and makes use of common deployment tooling such as [docker-compose] and [Helm].
+
+To see the configurations in full context, jump over to the source at [NickLarsenNZ/kubernetes-byo-worker][source].
 
 This series includes:
 
@@ -85,7 +89,10 @@ Through the rest of the series, I will work toward building that out.
 
 If you're interested in going deeper, read [Part 1: Kubernetes API Server up and running][part-1]
 
-[part-1]: #part1
+[part-1]: https://github.com/NickLarsenNZ/nicklarsennz-blog/blob/master/Part%201.%20Kubernetes%20API.md
+[docker-compose]: https://docs.docker.com/compose/
+[Helm]: https://helm.sh/
+[source]: https://github.com/NickLarsenNZ/kubernetes-byo-worker
 [kelsey-hightower]: https://twitter.com/kelseyhightower
 [k8s-hard-mode]: https://github.com/kelseyhightower/kubernetes-the-hard-way
 [kubernetes-arch]: ./images/kubernetes_architecture.png
