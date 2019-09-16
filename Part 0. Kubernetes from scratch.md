@@ -70,14 +70,17 @@ One thing I have noticed is that many of the diagrams show bi-directional traffi
 
 _**Note:** I have left a lot to be discussed, but I felt like it would detract from the goal of this series. For example, I have not covered additional services such as the Cloud Controller Manager, nor internal DNS for Services._
 
-## BYO Worker
+## The BYO Worker model
 
-So, the whole idea behind this was to have an easy way to launch master services, then bring your own workers. 
+So, the whole idea behind this was to have an easy way to launch master services, then bring your own workers.
+
+> Todo: insert diagram of what we'll be building towards.
 
 Here's the wish list:
 
-- Single deployment for master services on an existing Kubernetes cluster
+- Single Helm deployment for master services on an existing Kubernetes cluster
 - Ability to upgrade the master services, and worker nodes
+- Ability to label worker nodes
 - Immutable workers with no external access (no SSH, no extra user accounts)
 - Bring my own workers, with a container runtime of my choice
 
