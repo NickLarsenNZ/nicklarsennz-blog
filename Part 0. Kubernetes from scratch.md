@@ -7,7 +7,7 @@ September 14, 2019
 <p>
 
 - Purpose
-- Callout to Kelsey Hightower
+- Call-out to Kelsey Hightower
 - Version (1.14?)
 - Kubernetes architecture
 - Garden
@@ -21,18 +21,18 @@ To help improve my teams efficiency, I'm exploring ways to launch on-prem Kubern
 
 ## The series
 
-In this series, I hope to work through running each of the necessary components of Kubernetes, and devloping a deployment model.
+In this series, I hope to work through running each of the necessary components of Kubernetes, and developing a deployment model.
 
 This series includes:
 
 - Part 0: Kubernetes Architecture
 - [Part 1: Kubernetes API Server up and running][part-1]
 
-The approach I would like to take (we'll see when we're through) is to utilise existing tooling and Kubernetes clusters managed outside of our team. Roughly put, master services will run on an existing Kubernetes cluster, deployed by Helm (like most of our other deployments), and woker nodes can be attached and removed as needed. I call this _BYO Worker_.
+The approach I would like to take (we'll see when we're through) is to utilise existing tooling and Kubernetes clusters managed outside of our team. Roughly put, master services will run on an existing Kubernetes cluster, deployed by Helm (like most of our other deployments), and worker nodes can be attached and removed as needed. I call this _BYO Worker_.
 
-It has been a while since I've deployed hand built (well automated) clusters - proably around version 1.6~1.7, so before digging in, I wanted to understand what building a cluster looks like today. That means getting a deeper understanding of the components involved.
+It has been a while since I've deployed hand built (well automated) clusters - probably around version 1.6~1.7, so before digging in, I wanted to understand what building a cluster looks like today. That means getting a deeper understanding of the components involved.
 
-There are many articles explaining how to setup a Kubernetes cluster from scratch, but I will likely be referencing a widely known walkthrough by [Kelsey Hightower][kelsey-hightower] called [Kubernetes the hard way][k8s-hard-mode].
+There are many articles explaining how to setup a Kubernetes cluster from scratch, but I will likely be referencing a widely known walk-through by [Kelsey Hightower][kelsey-hightower] called [Kubernetes the hard way][k8s-hard-mode].
 
 Let's begin.
 
@@ -46,7 +46,7 @@ The _thousand-foot_ architectural view of Kubernetes is fairly simple. There are
 ![Kubernetes Architecture][kubernetes-arch]
 _The diagram above shows how the components communicate with each other._
 
-The [`kube-apiserver`][kube-apiserver] is the main connection point, and for every worker there are two connections from [`kubelet`][kubelet] and [`kube-proxy`][kube-proxy]. In addition, the [`kube-apiserver`][kube-apiserver] must be able to communicate with each [`kubelet`][kubelet] (for fetching logs, attching and executing commands, and port-forwarding into Pods). [See here for more detail on the necessary connectivity][kubernetes-comms].
+The [`kube-apiserver`][kube-apiserver] is the main connection point, and for every worker there are two connections from [`kubelet`][kubelet] and [`kube-proxy`][kube-proxy]. In addition, the [`kube-apiserver`][kube-apiserver] must be able to communicate with each [`kubelet`][kubelet] (for fetching logs, attaching and executing commands, and port-forwarding into Pods). [See here for more detail on the necessary connectivity][kubernetes-comms].
 
 ### Master Services
 
