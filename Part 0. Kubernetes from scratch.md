@@ -33,7 +33,12 @@ This series includes:
 
 For the past year or so, I have mostly worked with managed Kubernetes offerings in the cloud (EKS, AKS, GKE). It has been some time since I provisioned a home-grown Kubernetes cluster, so I spent some time gaining a deeper understanding of the components that make up a Kubernetes cluster. Through this series you will gain a deeper understanding of how the Kubernetes components hang together, and be able to simply launch Kubernetes clusters using common deployment tools.
 
-The approach I would like to take (we'll see when we're through) is to utilise existing tooling and Kubernetes clusters managed outside of our team. Roughly put, master services will run on an existing Kubernetes cluster, deployed by Helm (like most of our other deployments), and worker nodes can be attached and removed as needed. I call this _BYO Worker_.
+I will take the following approach:
+- Rapidly stand up each component using [docker-compose] and determining the set of variables to cover a wide variety of operating environment.
+- Develop a Helm Chart based on the knowledge gained from the rapid iterations using [docker-compose].
+- Use an existing Kubernetes cluster as a launchpad for deploying more clusters.
+- Attach worker nodes separately. I call this the _BYO Worker_ model.
+- Successfully run a test deployment on the cluster
 
 ## Kubernetes Architecture
 
