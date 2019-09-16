@@ -21,7 +21,7 @@ To help improve my teams efficiency, I'm exploring ways to launch on-prem Kubern
 
 ## The series
 
-In this series, I will build a deployable configuration of all necessary components to stand up a Kubernetes cluster, and developing a deployment model.
+In this series, I will build a deployable configuration of all necessary components to stand up a Kubernetes cluster.
 
 While there are many articles on how to deploy a Kubernetes cluster, I have yet to come across one that builds the minimum necessary, leverages containerisation for the control plane, and makes use of common deployment tooling such as [docker-compose] and [Helm].
 
