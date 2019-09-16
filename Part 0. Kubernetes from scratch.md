@@ -34,7 +34,7 @@ This series includes:
 
 The approach I would like to take (we'll see when we're through) is to utilise existing tooling and Kubernetes clusters managed outside of our team. Roughly put, master services will run on an existing Kubernetes cluster, deployed by Helm (like most of our other deployments), and worker nodes can be attached and removed as needed. I call this _BYO Worker_.
 
-It has been a while since I've deployed hand built (well automated) clusters - probably around version 1.6~1.7, so before digging in, I wanted to understand what building a cluster looks like today. That means getting a deeper understanding of the components involved.
+For the past year or so, I have mostly worked with managed Kubernetes offerings in the cloud (EKS, AKS, GKE). It has been some time since I provisioned a home-grown Kubernetes cluster, so before digging in, I wanted to understand what building a cluster looks like today. That means getting a deeper understanding of the components involved.
 
 There are many articles explaining how to setup a Kubernetes cluster from scratch, but I will likely be referencing a widely known walk-through by [Kelsey Hightower][kelsey-hightower] called [Kubernetes the hard way][k8s-hard-mode].
 
